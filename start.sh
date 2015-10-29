@@ -35,7 +35,7 @@ else
     fi
 
     npm install
-    bower install --allow-root
+    bower install --allow-root --config.interactive=false
 
     if ! type "pm2" > /dev/null; then
         echo -e "---------------------------"
