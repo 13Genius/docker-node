@@ -13,9 +13,13 @@ if ! type "git" > /dev/null; then
 fi
 
 git init
+echo -e "Getting repository: ${GIT_URL}"
 git remote add origin ${GIT_URL}
 git pull origin master
 
+echo -e "*** SSH PUBLIC KEY"
+cat /root/.ssh/id_rsa.pub
+echo -e "******************"
 
 if ! type "node" > /dev/null; then
     echo -e "\033[31m Error: Node not installed."
