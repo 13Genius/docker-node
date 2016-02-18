@@ -7,7 +7,6 @@ MAINTAINER Marcos Sanz <marcos.sanz@13genius.com>
 # Environment
 ENV NODE_ENV production
 ENV APP_PORT 9000
-ENV GIT_URL ''
 
 RUN apt-get -y update
 RUN apt-get -y upgrade

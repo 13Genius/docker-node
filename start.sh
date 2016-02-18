@@ -3,7 +3,8 @@
 cd /var/app/src
 
 git init
-git remote add origin git@bitbucket.org:bragteam/datamodeler-ui.git
+echo -e "Getting repository: ${REPO}"
+git remote add origin ${REPO}
 git pull origin master
 
 npm install
