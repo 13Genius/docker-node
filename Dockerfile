@@ -1,29 +1,36 @@
-FROM node
+# Set the base image
+FROM node:latest
 
+# File Author / Maintainer
 MAINTAINER Marcos Sanz <marcos.sanz@13genius.com>
 
+# Environment
 ENV NODE_ENV production
-ENV APP_PORT 5000
+ENV APP_PORT 9000
 ENV GIT_URL ''
 
 RUN apt-get -y update
 RUN apt-get -y upgrade
 
-ADD start.sh /start.sh
-RUN chmod +x /start.sh
+# Install git
+RUN apt-get -y install git
 
+# Install pm2 and gulp
+RUN npm install -g gulp
 RUN npm install -g pm2
-RUN npm install -g bower
-RUN npm install -g grunt-cli
 
-# Make ssh dir
-RUN mkdir /root/.ssh/
-RUN ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa
-RUN /bin/chown -R root:root /root/.ssh
-RUN /bin/chmod 0400 /root/.ssh/id_rsa
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-RUN ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
+# Define working directory
+RUN mkdir -p /var/app/src
 
-EXPOSE $APP_PORT
-CMD ["/start.sh"]
+# Share logs volume
+VOLUME /var/app/logs
+
+# Expose port
+EXPOSE  $APP_PORT
+
+# Run app
+ADD run.sh /run.sh
+ADD run.sh /start.sh
+RUN chmod +x /run.sh
+RUN chmod +x /start.sh
+CMD ["/run.sh"]
