@@ -20,6 +20,7 @@ RUN npm install -g pm2
 
 # Define working directory
 RUN mkdir -p /var/app/src
+RUN mkdir -p ~/.ssh/
 
 # Share logs volume
 VOLUME /var/app/logs
